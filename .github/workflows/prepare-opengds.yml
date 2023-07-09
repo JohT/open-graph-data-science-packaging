@@ -1,0 +1,60 @@
+name: Prepare Open Graph Data Science (GDS)
+
+on:
+  workflow_call:
+    inputs:
+      java-version:
+        description: "The java version (temurin distribution) to use for packaging the plugin"
+        required: true
+        type: string
+      neo4j-version:
+        description: "The targeted Neo4j version for the packaged plugin"
+        required: true
+        type: string
+      gds-version:
+        description: "The version tag of Neo4j's graph data science repository"
+        required: true
+        type: string
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Java JDK ${{ inputs.java-version }}
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: ${{ inputs.java-version }}
+
+      - name: Checkout git repository "neo4j/graph-data-science" with tag ${{ inputs.gds-version }}
+        uses: actions/checkout@v3
+        with:
+          repository: "neo4j/graph-data-science"
+          ref: ${{ inputs.gds-version }}
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      # Running the tests once more is deactivated since it takes a while and shouldn't be neccessary
+      #- name: Run tests (Gradle)
+      #  run: ./gradlew check -Pneo4jVersion=${{ inputs.neo4j-version }}
+
+      - name: Package JAR with dependencies for Neo4j ${{ inputs.neo4j-version }} (Gradle)
+        # - Run the gradle build with the finer log level (org.gradle.logging.level) "info"
+        # - Set the target Neo4j version property "Pneo4jVersion"
+        # - Execute the task "":open-packaging:shadowCopy" to create a jar
+        #   with all its dependencies as "shadow" packages included.
+        #   Reference: https://github.com/neo4j/graph-data-science/tree/master#building-the-library
+        run: ./gradlew -Dorg.gradle.logging.level=info -Pneo4jVersion=${{ inputs.neo4j-version }} -- :open-packaging:shadowCopy
+
+      - name: Rename JAR to open-graph-data-science-${{ inputs.gds-version }}-for-neo4j-${{ inputs.neo4j-version }}
+        run: mv ./build/distributions/*.jar ./build/distributions/open-graph-data-science-${{ inputs.gds-version }}-for-neo4j-${{ inputs.neo4j-version }}.jar
+
+      # Upload the results in case they are needed for troubleshooting for a couple of days
+      - name: Archive results as build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: open-graph-data-science-${{ inputs.gds-version }}-for-neo4j-${{ inputs.neo4j-version }}
+          path: ./build/distributions/
+          if-no-files-found: error
+          retention-days: 2
