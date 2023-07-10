@@ -1,0 +1,56 @@
+name: Release Open Graph Data Science (GDS) Package
+
+on:
+  push:
+    tags:
+      - "**"
+
+jobs:
+  prepare-release:
+    strategy:
+      matrix:
+        include:
+          - java-version: 11.0.19
+            neo4j-version: 4.4.23
+            gds-version: 2.4.1
+          - java-version: 17.0.7
+            neo4j-version: 5.9.0
+            gds-version: 2.4.1
+    uses: ./.github/workflows/prepare-opengds.yml
+    with:
+      java-version: ${{ matrix.java-version }}
+      neo4j-version: ${{ matrix.neo4j-version }}
+      gds-version: ${{ matrix.gds-version }}
+      
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [prepare-release]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download previously prepared artifacts
+        uses: actions/download-artifact@v3
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ github.ref_name }} OpenGDS
+          body: |
+            # Open Neo4j Graph Data Science (OpenGDS) ${{ github.ref_name }} Plugin Package
+            
+            This is only the automated packaging of the open sourced part of [Neo4j's Graph Data Science](https://github.com/neo4j/graph-data-science) plugin.  
+            Please visit [graph-data-science](https://github.com/neo4j/graph-data-science) for more details.  
+
+            ## Installation 
+             
+            Copy the JAR that suits your installation into the plugin directory of Neo4j.  
+            See [Neo4j Graph Data Science Installation](https://neo4j.com/docs/graph-data-science/current/installation) for more details.  
+            
+            ## Notes
+
+            :warning: This repository is only meant to be a personal workaround for the missing official OpenGDS plugin release artifacts.  
+            :warning: It is strongly recommended to switch to an official OpenGDS package as soon there is one.
+
+            ---
+          generate_release_notes: true
+          token: ${{ secrets.RELEASE_TOKEN }}
+          files: "**/*.jar"
