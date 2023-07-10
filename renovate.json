@@ -1,0 +1,26 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    "schedule:nonOfficeHours",
+    ":combinePatchMinorReleases",
+    ":ignoreUnstable",
+    ":automergeDigest",
+    ":automergePatch",
+    ":automergeMinor",
+    ":automergeRequireAllStatusChecks"
+  ],
+  "regexManagers": [
+    {
+      "fileMatch": [
+        "^(workflow-templates|\\.github/workflows)/[^/]+\\.ya?ml$",
+        "(^|/)action\\.ya?ml$"
+      ],
+      "matchStrings": [
+        "gds-version:\\s+(?<currentValue>.*?)\\n"
+      ],
+      "depNameTemplate": "neo4j/graph-data-science",
+      "datasourceTemplate": "github-releases"
+    }
+  ]
+}
