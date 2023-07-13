@@ -1,0 +1,37 @@
+name: Tag Open Graph Data Science (GDS)
+
+on:
+  push:
+    branches:
+      - main
+    # Only run when this file changes.
+    # In most cases this is the case when "gds-version" is updated by renovate.
+    # An existing git tag won't be overwritten. In that case no release will be triggered.
+    paths:
+      - ".github/workflows/tag-opengds.yml"
+
+jobs:
+  create-tag:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - gds-version: 2.4.1
+    env: 
+      CI_COMMIT_AUTHOR: ${{ github.event.repository.name }} git tag bot
+    steps:
+      - name: Checkout git repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.RELEASE_TOKEN }}
+
+      - name: Create git tag v${{ matrix.gds-version }}
+        run: |
+          git config --global user.name '${{ env.CI_COMMIT_AUTHOR }}'
+          git config --global user.email 'joht@users.noreply.github.com'
+          if git tag -a v${{ matrix.gds-version }} -m "Release open graph data science plugin v${{ matrix.gds-version }} package for Neo4j"; then
+            echo "Push created tag v${{ matrix.gds-version }} to trigger release"
+            git push origin v${{ matrix.gds-version }}
+          else
+            echo "Ignore already existing tag v${{ matrix.gds-version }}"
+          fi
