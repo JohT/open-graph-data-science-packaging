@@ -20,7 +20,8 @@
         "gds-version:\\s+(?<currentValue>.*?)\\n"
       ],
       "depNameTemplate": "neo4j/graph-data-science",
-      "datasourceTemplate": "github-tags"
+      "datasourceTemplate": "github-tags",
+      "versioningTemplate": "semver-coerced"
     }
   ]
 }
