@@ -4,6 +4,7 @@
     "config:base",
     "schedule:nonOfficeHours",
     ":combinePatchMinorReleases",
+    ":ignoreUnstable",
     ":automergeDigest",
     ":automergePatch",
     ":automergeMinor",
