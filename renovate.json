@@ -21,7 +21,7 @@
       ],
       "depNameTemplate": "neo4j/graph-data-science",
       "datasourceTemplate": "github-tags",
-      "versioningTemplate": "semver-coerced"
+      "versioningTemplate": "maven"
     }
   ]
 }
