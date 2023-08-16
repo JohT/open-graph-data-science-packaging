@@ -4,12 +4,12 @@
     "config:base",
     "schedule:nonOfficeHours",
     ":combinePatchMinorReleases",
-    ":ignoreUnstable",
     ":automergeDigest",
     ":automergePatch",
     ":automergeMinor",
     ":automergeRequireAllStatusChecks"
   ],
+  "ignoreUnstable": false,
   "regexManagers": [
     {
       "fileMatch": [
