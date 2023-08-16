@@ -4,7 +4,6 @@
     "config:base",
     "schedule:nonOfficeHours",
     ":combinePatchMinorReleases",
-    ":ignoreUnstable",
     ":automergeDigest",
     ":automergePatch",
     ":automergeMinor",
@@ -20,7 +19,7 @@
         "gds-version:\\s+(?<currentValue>.*?)\\n"
       ],
       "depNameTemplate": "neo4j/graph-data-science",
-      "datasourceTemplate": "github-releases"
+      "datasourceTemplate": "github-tags"
     }
   ]
 }
