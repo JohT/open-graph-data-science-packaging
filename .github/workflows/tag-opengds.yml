@@ -21,7 +21,7 @@ jobs:
       CI_COMMIT_AUTHOR: ${{ github.event.repository.name }} git tag bot
     steps:
       - name: Checkout git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.RELEASE_TOKEN }}
 
