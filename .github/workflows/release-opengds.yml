@@ -12,10 +12,10 @@ jobs:
         include:
           - java-version: 11.0.19
             neo4j-version: 4.4.23
-            gds-version: 2.5.0-alpha03
+            gds-version: 2.5.0-alpha04
           - java-version: 17.0.7
             neo4j-version: 5.9.0
-            gds-version: 2.5.0-alpha03
+            gds-version: 2.5.0-alpha04
     uses: ./.github/workflows/prepare-opengds.yml
     with:
       java-version: ${{ matrix.java-version }}
