@@ -45,7 +45,7 @@ jobs:
         # - Execute the task "":open-packaging:shadowCopy" to create a jar
         #   with all its dependencies as "shadow" packages included.
         #   Reference: https://github.com/neo4j/graph-data-science/tree/master#building-the-library
-        run: ./gradlew -Dorg.gradle.logging.level=info -Pneo4jVersion=${{ inputs.neo4j-version }} -- :open-packaging:shadowCopy
+        run: ./gradlew -Dorg.gradle.logging.level=info "-Dorg.gradle.jvmargs=-Xmx2g" -Pneo4jVersion=${{ inputs.neo4j-version }} -- :open-packaging:shadowCopy
 
       - name: Rename JAR to open-graph-data-science-${{ inputs.gds-version }}-for-neo4j-${{ inputs.neo4j-version }}
         run: mv ./build/distributions/*.jar ./build/distributions/open-graph-data-science-${{ inputs.gds-version }}-for-neo4j-${{ inputs.neo4j-version }}.jar
