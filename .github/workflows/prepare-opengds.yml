@@ -47,14 +47,18 @@ jobs:
         #   Reference: https://github.com/neo4j/graph-data-science/tree/master#building-the-library
         run: ./gradlew -Dorg.gradle.logging.level=info "-Dorg.gradle.jvmargs=-Xmx2g" -Pneo4jVersion=${{ inputs.neo4j-version }} -- :open-packaging:shadowCopy
 
-      - name: Rename JAR to open-graph-data-science-${{ inputs.gds-version }}-for-neo4j-${{ inputs.neo4j-version }}
-        run: mv ./build/distributions/*.jar ./build/distributions/open-graph-data-science-${{ inputs.gds-version }}-for-neo4j-${{ inputs.neo4j-version }}.jar
+      # Extract the major version number out of the full Neo4j version
+      - name: Get the major version number of Neo4j
+        run: echo "neo4j-major-version=$(echo "${{ inputs.neo4j-version }}" | cut -d "." -f1)" >> $GITHUB_ENV
+
+      - name: Rename JAR to open-graph-data-science-${{ inputs.gds-version }}-for-neo4j-${{ env.neo4j-major-version }}
+        run: mv ./build/distributions/*.jar ./build/distributions/open-graph-data-science-${{ inputs.gds-version }}-for-neo4j-${{ env.neo4j-major-version }}.jar
 
       # Upload the results in case they are needed for troubleshooting for a couple of days
       - name: Archive results as build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: open-graph-data-science-${{ inputs.gds-version }}-for-neo4j-${{ inputs.neo4j-version }}
+          name: open-graph-data-science-${{ inputs.gds-version }}-for-neo4j-${{ env.neo4j-major-version }}
           path: ./build/distributions/
           if-no-files-found: error
           retention-days: 2
