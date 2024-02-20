@@ -11,7 +11,7 @@ jobs:
       matrix:
         include:
           - java-version: 11.0.19
-            neo4j-version: 4.4.23
+            neo4j-version: 4.4.30
             gds-version: 2.7.0-alpha01
           - java-version: 17.0.7
             neo4j-version: 5.16.0
