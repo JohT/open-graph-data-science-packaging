@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - gds-version: 2.7.0+68
+          - gds-version: 2.6.7
     env: 
       CI_COMMIT_AUTHOR: ${{ github.event.repository.name }} git tag bot
     steps:
@@ -28,7 +28,7 @@ jobs:
       - name: Create git tag v${{ matrix.gds-version }}
         run: |
           git config --global user.name '${{ env.CI_COMMIT_AUTHOR }}'
-          git config --global user.email 'joht@users.noreply.github.com'
+          git config --global user.email '7671054+JohT@users.noreply.github.com'
           if git tag -a v${{ matrix.gds-version }} -m "Release open graph data science plugin v${{ matrix.gds-version }} package for Neo4j"; then
             echo "Push created tag v${{ matrix.gds-version }} to trigger release"
             git push origin v${{ matrix.gds-version }}
