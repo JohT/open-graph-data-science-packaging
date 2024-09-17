@@ -22,6 +22,19 @@
       "depNameTemplate": "neo4j/graph-data-science",
       "datasourceTemplate": "github-tags",
       "versioningTemplate": "maven"
+    },
+    {
+      "description": "Update Neo4j version in GitHub Action",
+      "customType": "regex",
+      "fileMatch": [
+        "^(workflow-templates|\\.github\/workflows)\\/[^/]+\\.ya?ml$",
+        "(^|\\/)action\\.ya?ml$]"
+      ],
+      "matchStrings": [
+        "neo4j-version:\\s+?(?<currentValue>.*?)\\s+"
+      ],
+      "depNameTemplate": "neo4j/neo4j",
+      "datasourceTemplate": "github-tags"
     }
   ]
 }
