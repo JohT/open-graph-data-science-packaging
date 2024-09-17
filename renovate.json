@@ -10,6 +10,19 @@
     ":automergeRequireAllStatusChecks"
   ],
   "ignoreUnstable": false,
+  "packageRules": [
+    {
+      "description": "Neo4j one month old",
+      "matchDepNames": [
+        "neo4j/neo4j"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "major"
+      ],
+      "minimumReleaseAge": "1 month"
+    }
+  ],
   "regexManagers": [
     {
       "fileMatch": [
