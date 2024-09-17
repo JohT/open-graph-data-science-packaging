@@ -22,10 +22,10 @@ jobs:
           # Neo4j v4 support dropped with graph-data-science >= v2.7.0
           # - java-version: 11.0.19 # Java 11 is required for Neo4j v4.x
           #   neo4j-version: 4.4.30
-          #   gds-version: 2.8.0
+          #   gds-version: 2.9.0
           - java-version: 17.0.7 # Java 17 is required for Neo4j >= v5.x
             neo4j-version: 5.22.0
-            gds-version: 2.8.0
+            gds-version: 2.9.0
     uses: ./.github/workflows/prepare-opengds.yml
     with:
       java-version: ${{ matrix.java-version }}
