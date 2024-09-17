@@ -12,15 +12,24 @@
   "ignoreUnstable": false,
   "packageRules": [
     {
-      "description": "Neo4j one month old",
+      "description": "Neo4j minor one month old",
       "matchDepNames": [
         "neo4j/neo4j"
       ],
       "matchUpdateTypes": [
-        "minor",
-        "major"
+        "minor"
       ],
       "minimumReleaseAge": "1 month"
+    },
+    {
+      "description": "Disable Neo4j major update",
+      "matchDepNames": [
+        "neo4j/neo4j"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "enabled": false
     }
   ],
   "regexManagers": [
