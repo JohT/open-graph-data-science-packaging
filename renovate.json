@@ -1,7 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base",
+    "config:recommended",
     "schedule:nonOfficeHours",
     ":combinePatchMinorReleases",
     ":automergeDigest",
@@ -32,8 +32,9 @@
       "enabled": false
     }
   ],
-  "regexManagers": [
+  "customManagers": [
     {
+      "customType": "regex",
       "fileMatch": [
         "^(workflow-templates|\\.github/workflows)/[^/]+\\.ya?ml$",
         "(^|/)action\\.ya?ml$"
@@ -49,7 +50,7 @@
       "description": "Update Neo4j version in GitHub Action",
       "customType": "regex",
       "fileMatch": [
-        "^(workflow-templates|\\.github\/workflows)\\/[^/]+\\.ya?ml$",
+        "^(workflow-templates|\\.github/workflows)\\/[^/]+\\.ya?ml$",
         "(^|\\/)action\\.ya?ml$]"
       ],
       "matchStrings": [
