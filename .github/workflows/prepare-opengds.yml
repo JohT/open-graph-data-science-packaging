@@ -45,7 +45,7 @@ jobs:
         # - Execute the task "":open-packaging:shadowCopy" to create a jar
         #   with all its dependencies as "shadow" packages included.
         #   Reference: https://github.com/neo4j/graph-data-science/tree/master#building-the-library
-        run: ./gradlew -Dorg.gradle.logging.level=info "-Dorg.gradle.jvmargs=-Xmx2g" -Pneo4jVersion=${{ inputs.neo4j-version }} -- :open-packaging:shadowCopy
+        run: ./gradlew -Dorg.gradle.logging.level=info "-Dorg.gradle.jvmargs=-Xmx2g" -Pneo4jVersion=${{ inputs.neo4j-version }} --stacktrace -- :open-packaging:shadowCopy
 
       # Extract the major version number out of the full Neo4j version
       - name: Get the major version number of Neo4j
