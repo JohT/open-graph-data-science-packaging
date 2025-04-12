@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - gds-version: 2.13.4
+          - gds-version: 2.16.0
     env: 
       CI_COMMIT_AUTHOR: ${{ github.event.repository.name }} git tag bot
     steps:
