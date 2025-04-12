@@ -23,7 +23,7 @@ jobs:
           # - java-version: 11.0.19 # Java 11 is required for Neo4j v4.x
           #   neo4j-version: 4.4.42
           #   gds-version: 2.13.4
-          - java-version: 17.0.7 # Java 17 is required for Neo4j >= v5.x
+          - java-version: 21.0.6 # Java 17 is required for Neo4j >= v2025.x
             neo4j-version: 5.26.5
             gds-version: 2.13.4
     uses: ./.github/workflows/prepare-opengds.yml
