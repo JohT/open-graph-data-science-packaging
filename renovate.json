@@ -12,14 +12,20 @@
   "ignoreUnstable": false,
   "packageRules": [
     {
-      "description": "Neo4j minor one month old",
+      "description": "Neo4j minor or major update 14 days old",
       "matchDepNames": [
         "neo4j/neo4j"
       ],
       "matchUpdateTypes": [
-        "minor"
+        "minor",
+        "major"
       ],
-      "minimumReleaseAge": "1 month"
+      "matchDatasources": [
+        "github-tags",
+        "github-releases"
+      ],
+      "versioning": "loose",
+      "minimumReleaseAge": "14 days"
     },
     {
       "description": "Disable Neo4j major update",
