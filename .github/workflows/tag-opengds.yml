@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-    # Only run when this file changes.
+    # Only run when this file changes. 
     # In most cases this is the case when "gds-version" is updated by renovate.
     # An existing git tag won't be overwritten. In that case no release will be triggered.
     paths:
