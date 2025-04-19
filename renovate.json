@@ -12,13 +12,9 @@
   "ignoreUnstable": false,
   "packageRules": [
     {
-      "description": "Neo4j minor or major update 14 days old",
+      "description": "Neo4j update delayed by 14 days",
       "matchDepNames": [
         "neo4j/neo4j"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "major"
       ],
       "matchDatasources": [
         "github-tags",
