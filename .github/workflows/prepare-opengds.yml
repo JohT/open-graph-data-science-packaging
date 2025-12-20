@@ -15,27 +15,38 @@ on:
         description: "The version tag of Neo4j's graph data science repository"
         required: true
         type: string
+      gds-ref:
+        description: "The git reference (branch, tag, commit) of Neo4j's graph data science repository"
+        required: false
+        type: string
+        default: ""
 
 jobs:
   prepare:
     runs-on: ubuntu-latest
     steps:
+      - name: Use gds-ref if inputs.gds-ref is set
+        if: inputs.gds-ref != ''
+        run: echo "gds-ref=${{ inputs.gds-ref }}" >> $GITHUB_ENV
+      - name: Use gds-version as default for gds-ref if inputs.gds-ref is not set
+        if: inputs.gds-ref == ''
+        run: echo "gds-ref=${{ inputs.gds-version }}" >> $GITHUB_ENV
       - name: Setup Java JDK ${{ inputs.java-version }}
         uses: actions/setup-java@v5
         with:
           distribution: "temurin"
           java-version: ${{ inputs.java-version }}
 
-      - name: Checkout git repository "neo4j/graph-data-science" with tag ${{ inputs.gds-version }}
+      - name: Checkout git repository "neo4j/graph-data-science" with ref ${{ env.gds-ref }}
         uses: actions/checkout@v6
         with:
           repository: "neo4j/graph-data-science"
-          ref: ${{ inputs.gds-version }}
+          ref: ${{ env.gds-ref }}
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      # Running the tests once more is deactivated since it takes a while and shouldn't be neccessary
+      # Running the tests once more is deactivated since it takes a while and shouldn't be necessary
       #- name: Run tests (Gradle)
       #  run: ./gradlew check -Pneo4jVersion=${{ inputs.neo4j-version }}
 
