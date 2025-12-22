@@ -16,7 +16,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - gds-version: 2.22.0
+          - gds-version: 2.24.0
+          - gds-ref: 71.68.83-v44-310b5f1b7f # Remove before 2.25.0 release
     env: 
       CI_COMMIT_AUTHOR: ${{ github.event.repository.name }} git tag bot
     steps:
@@ -24,14 +25,21 @@ jobs:
         uses: actions/checkout@v6
         with:
           token: ${{ secrets.RELEASE_TOKEN }}
+      
+      - name: Assemble tag name with "v" + gds-version (gds-ref empty)
+        if: matrix.gds-ref == ''
+        run: echo "TAG_NAME=v${{ matrix.gds-version }}" >> $GITHUB_ENV
+      - name: Assemble tag name with "v" + gds-version + "-" + gds-ref
+        if: matrix.gds-ref != ''
+        run: echo "TAG_NAME=v${{ matrix.gds-version }}-${{ matrix.gds-ref }}" >> $GITHUB_ENV
 
-      - name: Create git tag v${{ matrix.gds-version }}
+      - name: Create git tag ${{ env.TAG_NAME }}
         run: |
           git config --global user.name '${{ env.CI_COMMIT_AUTHOR }}'
           git config --global user.email '7671054+JohT@users.noreply.github.com'
-          if git tag -a v${{ matrix.gds-version }} -m "Release open graph data science plugin v${{ matrix.gds-version }} package for Neo4j"; then
-            echo "Push created tag v${{ matrix.gds-version }} to trigger release"
-            git push origin v${{ matrix.gds-version }}
+          if git tag -a ${{ env.TAG_NAME }} -m "Release open graph data science plugin ${{ env.TAG_NAME }} package for Neo4j"; then
+            echo "Push created tag ${{ env.TAG_NAME }} to trigger release"
+            git push origin ${{ env.TAG_NAME }}
           else
-            echo "Ignore already existing tag v${{ matrix.gds-version }}"
+            echo "Ignore already existing tag ${{ env.TAG_NAME }}"
           fi
