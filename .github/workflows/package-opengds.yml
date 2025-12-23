@@ -35,4 +35,4 @@ jobs:
       java-version: ${{ matrix.java-version }}
       neo4j-version: ${{ matrix.neo4j-version }}
       gds-version: ${{ matrix.gds-version }}
-      gds-ref: 71.68.83-v44-310b5f1b7f # Remove before 2.25.0 release
+      # gds-ref: 71.68.83-v44-310b5f1b7f # Example of how to pass a specific GDS build reference

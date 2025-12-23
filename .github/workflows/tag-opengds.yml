@@ -17,7 +17,7 @@ jobs:
       matrix:
         include:
           - gds-version: 2.24.0
-            gds-ref: 71.68.83-v44-310b5f1b7f # Remove before 2.25.0 release
+            # gds-ref: 71.68.83-v44-310b5f1b7f # Example of how to pass a specific GDS build reference
     env: 
       CI_COMMIT_AUTHOR: ${{ github.event.repository.name }} git tag bot
     steps:
