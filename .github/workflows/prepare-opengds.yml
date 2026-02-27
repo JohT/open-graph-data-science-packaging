@@ -67,7 +67,7 @@ jobs:
 
       # Upload the results in case they are needed for troubleshooting for a couple of days
       - name: Archive results as build artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: open-graph-data-science-${{ inputs.gds-version }}-for-neo4j-${{ env.neo4j-major-version }}
           path: ./build/distributions/
