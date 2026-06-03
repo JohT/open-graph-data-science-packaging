@@ -32,6 +32,15 @@
         "major"
       ],
       "enabled": false
+    },
+    {
+      "description": "Group neo4j and graph-data-science together",
+      "matchDepNames": [
+        "neo4j/neo4j",
+        "neo4j/graph-data-science"
+      ],
+      "groupName": "neo4j dependencies",
+      "groupSlug": "neo4j-dependencies"
     }
   ],
   "customManagers": [
