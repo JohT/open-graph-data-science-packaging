@@ -38,7 +38,7 @@ jobs:
           java-version: ${{ inputs.java-version }}
 
       - name: Checkout git repository "neo4j/graph-data-science" with ref ${{ env.gds-ref }}
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           repository: "neo4j/graph-data-science"
           ref: ${{ env.gds-ref }}
