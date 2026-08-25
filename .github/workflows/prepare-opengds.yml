@@ -32,7 +32,7 @@ jobs:
         if: inputs.gds-ref == ''
         run: echo "gds-ref=${{ inputs.gds-version }}" >> $GITHUB_ENV
       - name: Setup Java JDK ${{ inputs.java-version }}
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           distribution: "temurin"
           java-version: ${{ inputs.java-version }}
